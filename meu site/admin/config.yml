@@ -1,0 +1,23 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
+collections:
+  - name: "configuracoes"
+    label: "Configurações do Site"
+    files:
+      - name: "geral"
+        label: "Informações Gerais"
+        file: "content/config.json"
+        fields:
+          - { label: "Título do Site", name: "titulo_site", widget: "string", default: "IMÓVELPRIME" }
+          - { label: "Frase principal (Hero)", name: "frase_hero", widget: "string", default: "Onde o luxo encontra o seu lar" }
+          - { label: "Telefone", name: "telefone", widget: "string", default: "(11) 99999-9999" }
+          - { label: "Email", name: "email", widget: "string", default: "contato@imovelprime.com" }
+          - { label: "Endereço", name: "endereco_footer", widget: "string", default: "Av. Paulista, 1000 - SP" }
+          - { label: "Horário", name: "horario", widget: "string", default: "Segunda a Sexta: 9h às 19h" }
+          - { label: "Sábado", name: "sabado", widget: "string", default: "Sábado: 10h às 14h" }
+          - { label: "Texto Sobre Nós", name: "sobre_texto", widget: "text", default: "A ImóvelPrime é mais do que uma imobiliária..." }

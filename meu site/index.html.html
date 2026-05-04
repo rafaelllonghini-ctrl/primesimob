@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ImóvelPrime Premium - Imobiliária de Luxo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+        }
+
+        /* Header e Navegação */
+        header {
+            background: #000000;
+            border-bottom: 1px solid #1a1a1a;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d4af37;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: white;
+            font-weight: 300;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+        }
+
+        .hero h1 span {
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+
+        .search-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #d4af37;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .search-box input, .search-box select {
+            flex: 1;
+            padding: 0.8rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .search-box input:focus, .search-box select:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .search-box button {
+            background: #d4af37;
+            color: #000;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #c4a030;
+            transform: translateY(-2px);
+        }
+
+        /* Seção de Imóveis */
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #d4af37;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: #d4af37;
+            margin: 1rem auto 0;
+        }
+
+        .imoveis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .imovel-card {
+            background: #111111;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: all 0.3s;
+        }
+
+        .imovel-card:hover {
+            transform: translateY(-8px);
+            border-color: #d4af37;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .imovel-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .imovel-info {
+            padding: 1.5rem;
+        }
+
+        .imovel-preco {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .imovel-endereco {
+            color: #888;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .imovel-detalhes {
+            display: flex;
+            gap: 1.2rem;
+            margin: 1rem 0;
+            padding-top: 1rem;
+            border-top: 1px solid #222;
+        }
+
+        .detalhe-item {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .btn-detalhes {
+            display: inline-block;
+            background: transparent;
+            color: #d4af37;
+            text-decoration: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            margin-top: 1rem;
+            transition: all 0.3s;
+            border: 1px solid #d4af37;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .btn-detalhes:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        /* Modal Premium com Galeria */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #0f0f0f;
+            max-width: 900px;
+            width: 90%;
+            border-radius: 16px;
+            position: relative;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid #d4af37;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #fff;
+            z-index: 10;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #d4af37;
+        }
+
+        /* Galeria de imagens */
+        .galeria-container {
+            padding: 1.5rem;
+            background: #080808;
+        }
+
+        .galeria-principal {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .galeria-imagem {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .seta {
+            position: absolute;
+            background: rgba(0,0,0,0.7);
+            color: #d4af37;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+            transition: all 0.3s;
+            z-index: 5;
+        }
+
+        .seta:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        .seta-esquerda {
+            left: 10px;
+        }
+
+        .seta-direita {
+            right: 10px;
+        }
+
+        .miniaturas {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .miniatura {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .miniatura:hover, .miniatura.ativa {
+            opacity: 1;
+            border-color: #d4af37;
+        }
+
+        /* Informações do imóvel no modal */
+        .modal-info {
+            padding: 1.5rem;
+        }
+
+        .modal-titulo {
+            font-size: 1.8rem;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-preco {
+            font-size: 2rem;
+            color: #fff;
+            margin: 0.5rem 0;
+        }
+
+        .modal-endereco {
+            color: #888;
+            margin-bottom: 1rem;
+        }
+
+        .modal-detalhes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            background: #080808;
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+
+        .modal-detalhe-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ccc;
+        }
+
+        .modal-descricao {
+            line-height: 1.8;
+            color: #bbb;
+            margin-top: 1rem;
+        }
+
+        .modal-descricao p {
+            margin-bottom: 0.8rem;
+        }
+
+        /* Sobre */
+        .sobre {
+            background: #080808;
+        }
+
+        .sobre-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .sobre-texto p {
+            margin-bottom: 1rem;
+            color: #bbb;
+        }
+
+        .sobre-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .sobre-img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+
+        /* Contato */
+        .contato-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #111;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #222;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #d4af37;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .btn-enviar {
+            background: #d4af37;
+            color: #000;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .btn-enviar:hover {
+            background: #c4a030;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            border-top: 1px solid #1a1a1a;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            color: #d4af37;
+            margin-bottom: 1rem;
+        }
+
+        .footer-col p {
+            margin-bottom: 0.5rem;
+            color: #888;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #1a1a1a;
+            color: #666;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .sobre-content {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .galeria-imagem {
+                height: 250px;
+            }
+
+            .miniatura {
+                width: 60px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">IMÓVEL<span>PRIME</span></a>
+            <ul class="nav-links">
+                <li><a href="#home">INÍCIO</a></li>
+                <li><a href="#imoveis">IMÓVEIS</a></li>
+                <li><a href="#sobre">SOBRE</a></li>
+                <li><a href="#contato">CONTATO</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>IMÓVEL<span>PRIME</span></h1>
+            <p>Onde o luxo encontra o seu lar</p>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Digite a cidade ou bairro..." onkeyup="filtrarImoveis()">
+                <select id="tipoFilter" onchange="filtrarImoveis()">
+                    <option value="">Todos os tipos</option>
+                    <option value="Casa">Casa</option>
+                    <option value="Apartamento">Apartamento</option>
+                    <option value="Terreno">Terreno</option>
+                </select>
+                <button onclick="filtrarImoveis()">BUSCAR</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="imoveis" class="section">
+        <div class="container">
+            <h2 class="section-title">Imóveis Exclusivos</h2>
+            <div id="imoveisGrid" class="imoveis-grid"></div>
+        </div>
+    </section>
+
+    <section id="sobre" class="section sobre">
+        <div class="container">
+            <h2 class="section-title">Sobre Nós</h2>
+            <div class="sobre-content">
+                <div class="sobre-texto">
+                    <p>A <strong style="color:#d4af37">ImóvelPrime</strong> é mais do que uma imobiliária — somos curadores de experiências exclusivas. Com mais de 15 anos no mercado de alto padrão, oferecemos os imóveis mais luxuosos e bem localizados do Brasil.</p>
+                    <p>Nossa equipe de especialistas está preparada para atender clientes exigentes que buscam não apenas um imóvel, mas um estilo de vida. Da consultoria inicial à entrega das chaves,每 detalhe é pensado para sua satisfação.</p>
+                    <div class="sobre-stats">
+                        <div class="stat">
+                            <div class="stat-number">+500</div>
+                            <div>Clientes</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">15</div>
+                            <div>Anos</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">R$2B</div>
+                            <div>Em vendas</div>
+                        </div>
+                    </div>
+                </div>
+                <img class="sobre-img" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600" alt="Nossa equipe">
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="section">
+        <div class="container">
+            <h2 class="section-title">Fale Conosco</h2>
+            <div class="contato-form">
+                <form id="contatoForm">
+                    <div class="form-group">
+                        <label>Nome completo</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Telefone</label>
+                        <input type="tel" id="telefone">
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem</label>
+                        <textarea id="mensagem" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-enviar">Enviar mensagem</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <h4>IMÓVELPRIME</h4>
+                    <p>Luxo, exclusividade e confiança.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>CONTATO</h4>
+                    <p>📞 (11) 99999-9999</p>
+                    <p>✉️ contato@imovelprime.com</p>
+                    <p>📍 Av. Paulista, 1000 - SP</p>
+                </div>
+                <div class="footer-col">
+                    <h4>HORÁRIO</h4>
+                    <p>Segunda a Sexta: 9h às 19h</p>
+                    <p>Sábado: 10h às 14h</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 ImóvelPrime - Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Premium -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="fecharModal()">&times;</span>
+            <div id="galeriaContainer" class="galeria-container">
+                <div class="galeria-principal">
+                    <button class="seta seta-esquerda" onclick="anteriorImagem()">❮</button>
+                    <img id="galeriaImagem" class="galeria-imagem" src="" alt="Imagem do imóvel">
+                    <button class="seta seta-direita" onclick="proximaImagem()">❯</button>
+                </div>
+                <div id="miniaturas" class="miniaturas"></div>
+            </div>
+            <div class="modal-info">
+                <h2 id="modalTitulo" class="modal-titulo"></h2>
+                <div id="modalPreco" class="modal-preco"></div>
+                <div id="modalEndereco" class="modal-endereco"></div>
+                <div id="modalDetalhesGrid" class="modal-detalhes-grid"></div>
+                <div id="modalDescricao" class="modal-descricao"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Banco de imóveis com múltiplas imagens e descrições ricas
+        const imoveis = [
+            {
+                id: 1,
+                titulo: "Casa Moderna com Piscina",
+                preco: "R$ 1.250.000",
+                endereco: "Jardim das Flores, São Paulo - SP",
+                imagens: [
+                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
+                    "https://images.unsplash.com/photo-1583609752510-812b889ea0fe?w=800",
+                    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
+                    "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800"
+                ],
+                quartos: 4,
+                banheiros: 3,
+                area: 220,
+                tipo: "Casa",
+                descricao: "<p>Deslumbrante casa contemporânea com acabamento de altíssimo padrão. A propriedade oferece uma experiência única de luxo e conforto.</p><p><strong>Diferenciais:</strong> Piscina aquecida com iluminação LED, churrasqueira gourmet, adega climatizada, 4 suítes sendo 2 master com closet, cozinha planejada com ilha central, sala de cinema e sistema de automação residencial.</p><p><strong>Área externa:</strong> Jardim paisagístico com árvores frutíferas, área de gourmet com forno a lenha, sauna seca e espaço para massagem.</p><p>Localizada no bairro mais nobre da região, com segurança 24h e próximo a shoppings, escolas internacionais e parques.</p>"
+            },
+            {
+                id: 2,
+                titulo: "Apartamento Premium",
+                preco: "R$ 890.000",
+                endereco: "Vila Olímpia, São Paulo - SP",
+                imagens: [
+                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+                    "https://images.unsplash.com/photo-1582653291997-079a1b04e6a1?w=800",
+                    "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?w=800"
+                ],
+                quartos: 3,
+                banheiros: 2,
+                area: 120,
+                tipo: "Apartamento",
+                descricao: "<p>Elegante apartamento na região mais valorizada de São Paulo. Perfeito para quem busca praticidade sem abrir mão do luxo.</p><p><strong>Comodidades:</strong> Varanda gourmet com churrasqueira, 3 dormitórios sendo 1 suíte, piso aquecido no banheiro, armários planejados, ar condicionado central, vaga dupla na garagem.</p><p><strong>Condomínio:</strong> Academia completa, piscina aquecida, salão de festas com cozinha industrial, playground, pet place e portaria 24h.</p><p>A 200m do metrô e próximo aos melhores restaurantes e centros empresariais.</p>"
+            },
+            {
+                id: 3,
+                titulo: "Terreno em Condomínio",
+                preco: "R$ 450.000",
+                endereco: "Alphaville, Barueri - SP",
+                imagens: [
+                    "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800",
+                    "https://images.unsplash.com/photo-1523348837708-15d4a6cf0a8b?w=800",
+                    "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800"
+                ],
+                quartos: 0,
+                banheiros: 0,
+                area: 360,
+                tipo: "Terreno",
+                descricao: "<p>Terreno plano e totalmente infraestruturado no mais conceituado condomínio de Alphaville.</p><p><strong>Infraestrutura:</strong> Rede de água, esgoto, energia elétrica subterrânea, fibra óptica, pavimentação de alto padrão.</p><p><strong>Condomínio:</strong> Segurança 24h, portaria controlada, câmeras em todo perímetro, campo society, quadras, parque infantil e salão comunitário.</p><p>Localização privilegiada: a 5 minutos do Shopping Alphaville, escolas renomadas e principais acessos rodoviários.</p>"
+            },
+            {
+                id: 4,
+                titulo: "Cobertura Duplex",
+                preco: "R$ 2.100.000",
+                endereco: "Moema, São Paulo - SP",
+                imagens: [
+                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+                    "https://images.unsplash.com/photo-1582653291997-079a1b04e6a1?w=800"
+                ],
+                quartos: 5,
+                banheiros: 4,
+                area: 250,
+                tipo: "Apartamento",
+                descricao: "<p>Deslumbrante cobertura duplex com vista panorâmica 360° da cidade. O ápice do luxo em Moema.</p><p><strong>Estrutura:</strong> Terraço privativo de 120m² com churrasqueira, forno de pizza, piscina privativa, ofurô, jardim vertical e área gourmet completa.</p><p><strong>Interior:</strong> 5 suítes, sendo 2 master com closet e banheira de hidromassagem, sala de estar e jantar integradas com pé direito duplo, home theater, escritório, adega climatizada e elevador privativo.</p><p>Acabamentos nobres: piso de mármore carrara, madeira de demolição, bancadas em granito São Gabriel, automação total e sistema de som ambiente.</p>"
+            },
+            {
+                id: 5,
+                titulo: "Casa em Condomínio Fechado",
+                preco: "R$ 1.680.000",
+                endereco: "Tamboré, Santana de Parnaíba - SP",
+                imagens: [
+                    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
+                    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800",
+                    "https://images.unsplash.com/photo-1583609752510-812b889ea0fe?w=800"
+                ],
+                quartos: 4,
+                banheiros: 3,
+                area: 280,
+                tipo: "Casa",
+                descricao: "<p>Imponente casa em condomínio de luxo, perfeita para famílias que buscam segurança, espaço e sofisticação.</p><p><strong>Diferenciais:</strong> 4 suítes, sendo 1 com closet e banheira, lavanderia separada, dependência completa para empregados, garagem para 4 carros, piscina com cascata, sauna, quadra de areia e espaço gourmet.</p><p><strong>Condomínio:</strong> 24h segurança, campo de golfe de 18 buracos, lagos ornamentais, equitação, clube com piscinas, academia, restaurante e spa.</p><p>Acabamentos de primeira linha: pisos em porcelanato, esquadrias em alumínio de alto padrão, vidros temperados e iluminação paisagística.</p>"
+            },
+            {
+                id: 6,
+                titulo: "Studio Moderno",
+                preco: "R$ 420.000",
+                endereco: "Vila Mariana, São Paulo - SP",
+                imagens: [
+                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+                    "https://images.unsplash.com/photo-1582653291997-079a1b04e6a1?w=800"
+                ],
+                quartos: 1,
+                banheiros: 1,
+                area: 45,
+                tipo: "Apartamento",
+                descricao: "<p>Studio sofisticado e totalmente reformado, ideal para profissionais ou investidores.</p><p><strong>Acabamentos:</strong> Móveis planejados de alta qualidade, piso vinílico, bancada em quartzo, eletrodomésticos Bosch, ar condicionado split, box em vidro temperado.</p><p><strong>Localização:</strong> A 50m do metrô Vila Mariana, próximo ao Ibirapuera, shoppings, hospitais e universidades como a Unifesp e Santa Casa.</p><p>Excelente oportunidade para quem quer morar com estilo ou rentabilidade garantida de 0.7% ao mês.</p>"
+            }
+        ];
+
+        let imoveisFiltrados = [...imoveis];
+        let currentImovel = null;
+        let currentImageIndex = 0;
+
+        function renderizarImoveis() {
+            const grid = document.getElementById('imoveisGrid');
+            grid.innerHTML = '';
+
+            if (imoveisFiltrados.length === 0) {
+                grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; color:#888;">Nenhum imóvel encontrado.</p>';
+                return;
+            }
+
+            imoveisFiltrados.forEach(imovel => {
+                const card = document.createElement('div');
+                card.className = 'imovel-card';
+                card.innerHTML = `
+                    <img class="imovel-img" src="${imovel.imagens[0]}" alt="${imovel.titulo}" onerror="this.src='https://via.placeholder.com/500x300?text=Im%C3%B3vel'">
+                    <div class="imovel-info">
+                        <div class="imovel-preco">${imovel.preco}</div>
+                        <div class="imovel-endereco">📍 ${imovel.endereco}</div>
+                        <div class="imovel-detalhes">
+                            <span class="detalhe-item">🛏️ ${imovel.quartos} ${imovel.quartos === 1 ? 'quarto' : 'quartos'}</span>
+                            <span class="detalhe-item">🛁 ${imovel.banheiros} ${imovel.banheiros === 1 ? 'banheiro' : 'banheiros'}</span>
+                            <span class="detalhe-item">📐 ${imovel.area}m²</span>
+                        </div>
+                        <button class="btn-detalhes" onclick="abrirModal(${imovel.id})">VER DETALHES</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filtrarImoveis() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const tipoFilter = document.getElementById('tipoFilter').value;
+
+            imoveisFiltrados = imoveis.filter(imovel => {
+                const matchSearch = imovel.titulo.toLowerCase().includes(searchTerm) || 
+                                   imovel.endereco.toLowerCase().includes(searchTerm);
+                const matchTipo = tipoFilter === '' || imovel.tipo === tipoFilter;
+                return matchSearch && matchTipo;
+            });
+
+            renderizarImoveis();
+        }
+
+        function abrirModal(id) {
+            currentImovel = imoveis.find(i => i.id === id);
+            if (!currentImovel) return;
+            
+            currentImageIndex = 0;
+            atualizarGaleria();
+            
+            document.getElementById('modalTitulo').innerText = currentImovel.titulo;
+            document.getElementById('modalPreco').innerHTML = currentImovel.preco;
+            document.getElementById('modalEndereco').innerHTML = `📍 ${currentImovel.endereco}`;
+            
+            // Detalhes em grid
+            const detalhesGrid = document.getElementById('modalDetalhesGrid');
+            detalhesGrid.innerHTML = `
+                <div class="modal-detalhe-item">🛏️ <strong>${currentImovel.quartos}</strong> ${currentImovel.quartos === 1 ? 'quarto' : 'quartos'}</div>
+                <div class="modal-detalhe-item">🛁 <strong>${currentImovel.banheiros}</strong> ${currentImovel.banheiros === 1 ? 'banheiro' : 'banheiros'}</div>
+                <div class="modal-detalhe-item">📐 <strong>${currentImovel.area}m²</strong> de área útil</div>
+                <div class="modal-detalhe-item">🏷️ Tipo: <strong>${currentImovel.tipo}</strong></div>
+            `;
+            
+            document.getElementById('modalDescricao').innerHTML = currentImovel.descricao;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function atualizarGaleria() {
+            if (!currentImovel) return;
+            
+            const imgElement = document.getElementById('galeriaImagem');
+            imgElement.src = currentImovel.imagens[currentImageIndex];
+            
+            const miniaturasContainer = document.getElementById('miniaturas');
+            miniaturasContainer.innerHTML = '';
+            
+            currentImovel.imagens.forEach((img, idx) => {
+                const miniatura = document.createElement('img');
+                miniatura.src = img;
+                miniatura.className = 'miniatura';
+                if (idx === currentImageIndex) miniatura.classList.add('ativa');
+                miniatura.onclick = () => {
+                    currentImageIndex = idx;
+                    atualizarGaleria();
+                };
+                miniaturasContainer.appendChild(miniatura);
+            });
+        }
+
+        function proximaImagem() {
+            if (!currentImovel) return;
+            currentImageIndex = (currentImageIndex + 1) % currentImovel.imagens.length;
+            atualizarGaleria();
+        }
+
+        function anteriorImagem() {
+            if (!currentImovel) return;
+            currentImageIndex = (currentImageIndex - 1 + currentImovel.imagens.length) % currentImovel.imagens.length;
+            atualizarGaleria();
+        }
+
+        function fecharModal() {
+            document.getElementById('modal').style.display = 'none';
+            currentImovel = null;
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                fecharModal();
+            }
+        }
+
+        // Formulário de contato
+        document.getElementById('contatoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            alert(`Obrigado ${nome}! Sua mensagem foi enviada. Um de nossos consultores entrará em contato em até 24h.`);
+            this.reset();
+        });
+
+        renderizarImoveis();
+    </script>
+
+    <!-- SISTEMA DE CMS - Carrega dados editáveis do config.json -->
+    <script>
+        console.log('🔍 Verificando CMS...');
+        
+        fetch('/content/config.json')
+            .then(response => {
+                console.log('📡 Resposta do servidor:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status} - Arquivo config.json não encontrado`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('✅ Dados do CMS carregados:', data);
+                
+                // 1. Título do site (parte que fica dentro do span)
+                const logoSpan = document.querySelector('.logo span');
+                if (logoSpan && data.titulo_site) {
+                    const nomeSemImovel = data.titulo_site.replace('IMÓVEL', '');
+                    logoSpan.textContent = nomeSemImovel;
+                    console.log('✓ Título atualizado:', nomeSemImovel);
+                }
+                
+                // 2. Frase principal do Hero
+                const heroP = document.querySelector('.hero p');
+                if (heroP && data.frase_hero) {
+                    heroP.textContent = data.frase_hero;
+                    console.log('✓ Frase hero atualizada:', data.frase_hero);
+                }
+                
+                // 3. Telefone no rodapé
+                const footerTel = document.querySelector('.footer-col:nth-child(2) p:nth-child(1)');
+                if (footerTel && data.telefone) {
+                    footerTel.innerHTML = `📞 ${data.telefone}`;
+                    console.log('✓ Telefone atualizado:', data.telefone);
+                }
+                
+                // 4. Email no rodapé
+                const footerEmail = document.querySelector('.footer-col:nth-child(2) p:nth-child(2)');
+                if (footerEmail && data.email) {
+                    footerEmail.innerHTML = `✉️ ${data.email}`;
+                    console.log('✓ Email atualizado:', data.email);
+                }
+                
+                // 5. Endereço no rodapé
+                const footerEnd = document.querySelector('.footer-col:nth-child(2) p:nth-child(3)');
+                if (footerEnd && data.endereco_footer) {
+                    footerEnd.innerHTML = `📍 ${data.endereco_footer}`;
+                    console.log('✓ Endereço atualizado:', data.endereco_footer);
+                }
+                
+                // 6. Horário de funcionamento (segunda a sexta)
+                const footerHorario = document.querySelector('.footer-col:nth-child(3) p:nth-child(1)');
+                if (footerHorario && data.horario) {
+                    footerHorario.textContent = data.horario;
+                    console.log('✓ Horário semana atualizado:', data.horario);
+                }
+                
+                // 7. Horário de sábado
+                const footerSabado = document.querySelector('.footer-col:nth-child(3) p:nth-child(2)');
+                if (footerSabado && data.sabado) {
+                    footerSabado.textContent = data.sabado;
+                    console.log('✓ Horário sábado atualizado:', data.sabado);
+                }
+                
+                // 8. Texto "Sobre Nós" (primeiro parágrafo)
+                const sobreTexto = document.querySelector('.sobre-texto p:first-child');
+                if (sobreTexto && data.sobre_texto) {
+                    sobreTexto.innerHTML = data.sobre_texto;
+                    console.log('✓ Texto Sobre Nós atualizado');
+                }
+                
+                // 9. Título principal do Hero (IMÓVEL + texto)
+                const heroTituloSpan = document.querySelector('.hero h1 span');
+                if (heroTituloSpan && data.titulo_site) {
+                    heroTituloSpan.textContent = data.titulo_site.replace('IMÓVEL', '');
+                }
+                
+                console.log('🎉 SITE ATUALIZADO COM SUCESSO VIA CMS!');
+            })
+            .catch(error => {
+                console.error('❌ ERRO AO CARREGAR CMS:', error.message);
+                console.log('ℹ️ O site está rodando em modo estático. Para ativar o CMS, publique o site no Netlify e ative o Identity.');
+                
+                // Aviso visual amigável (some após 5 segundos)
+                const aviso = document.createElement('div');
+                aviso.style.background = '#d4af37';
+                aviso.style.color = '#000';
+                aviso.style.padding = '8px 16px';
+                aviso.style.textAlign = 'center';
+                aviso.style.position = 'fixed';
+                aviso.style.bottom = '10px';
+                aviso.style.right = '10px';
+                aviso.style.zIndex = '9999';
+                aviso.style.borderRadius = '8px';
+                aviso.style.fontSize = '12px';
+                aviso.style.fontWeight = 'bold';
+                aviso.innerHTML = '📝 Modo estático - Publique no Netlify para editar pelo CMS';
+                document.body.appendChild(aviso);
+                setTimeout(() => aviso.remove(), 5000);
+            });
+    </script>
+</body>
+</html>
